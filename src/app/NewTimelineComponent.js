@@ -21,7 +21,9 @@ const NewTimelineComponent = ()=> {
     
     const getGroupsFromLocalStorage = () => {
         const savedGroups = localStorage.getItem('timelineGroups');
-        return savedGroups ? JSON.parse(savedGroups) :  [{id:1, title: 'group 1', stackItems: true, height: 50}] 
+        const savedGroupsLength = JSON.parse(savedGroups).length;
+        console.log('savedGroupsLength', savedGroupsLength);
+        return savedGroupsLength!==0 ? JSON.parse(savedGroups) :  [{id:1, title: 'group 1', stackItems: true, height: 50}] 
     };
     
     const [groups, setGroups] = useState(getGroupsFromLocalStorage);
@@ -41,7 +43,9 @@ const NewTimelineComponent = ()=> {
     const getItemsFromLocalStorage = () => {
         const savedItems = localStorage.getItem('timelineItems');
         console.log('savedItems', savedItems);
-        return savedItems ? JSON.parse(savedItems).map(item=>
+        const savedItemsLength = JSON.parse(savedItems).length;
+        console.log('savedItemsLength',savedItemsLength);
+        return savedItemsLength !==0 ? JSON.parse(savedItems).map(item=>
              ({...item, start_time: moment(item.start_time), 
                 end_time: moment(item.end_time)})) 
                 :  [{id:1, group:1, title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour'), canMove: true, canResize: true, canChangeGroup: true}]
